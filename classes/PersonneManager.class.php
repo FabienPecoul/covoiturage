@@ -1,66 +1,72 @@
 <?php
 class PersonneManager{
-		private $dbo;
+	private $dbo;
 
-		public function __construct($db){
-			$this->db = $db;
-		}
-        public function add($personne){
-            $requete = $this->db->prepare(
-						'INSERT INTO Personne (per_num, per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd) VALUES (:num, :nom, :prenom, :tel, :mail, :login, :pwd);');
+	public function __construct($db){
+		$this->db = $db;
+	}
+  public function add($personne){
+			$salt="48@!alsd";
 
-            $requete->bindValue(':num', $Personne->gzhgHGO());
-            $requete->bindValue(':nom', $Personne->gzhgHGO());
-			$requete->bindValue(':prenom', $Personne->gzhgHGO());
-			$requete->bindValue(':tel', $Personne->gzhgHGO());
-			$requete->bindValue(':mail', $Personne->gzhgHGO());
-			$requete->bindValue(':login', $Personne->gzhgHGO());
-			$requete->bindValue(':pwd', $Personne->gzhgHGO());
+      $requete = $this->db->prepare(
+			'INSERT INTO Personne (per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd) VALUES (:nom, :prenom, :tel, :mail, :login, :pwd);');
 
-                        $retour=$requete->execute();
-					//var_dump($requete->debugDumpParams());
-					return $retour;
-        }
+    	$requete->bindValue(':nom', $personne->getPerNom());
+			$requete->bindValue(':prenom', $personne->getPerPrenom());
+			$requete->bindValue(':tel', $personne->getPerTel());
+			$requete->bindValue(':mail', $personne->getPerMail());
+			$requete->bindValue(':login', $personne->getPerLogin());
+			$requete->bindValue(':pwd', sha1(sha1($personne->getPerPwd()).$salt));
 
-        public function trouverVille($id) {
-        	$sql = 'SELECT vil_nom FROM Ville WHERE vil_nom="$id"';
+      $retour=$requete->execute();
+		//var_dump($requete->debugDumpParams());
+		return $retour;
+  }
 
-        	$requete = $this->db->prepare($sql);
-        	$requete->execute();
-        	$nomVille= $requete->fetch(PDO::FETCH_OBJ);
-        	$requete->closeCursor();
-        	return $nomVille;
-        }
+  public function trouverVille($id) {
+  	$sql = 'SELECT vil_nom FROM Ville WHERE vil_nom="$id"';
 
-		public function getAllPersonne(){
-            $listePersonne = array();
+  	$requete = $this->db->prepare($sql);
+  	$requete->execute();
+  	$nomVille= $requete->fetch(PDO::FETCH_OBJ);
+  	$requete->closeCursor();
+  	return $nomVille;
+  }
 
-            $sql = 'SELECT par_num, v1.vil_nom as vil_num1, v2.vil_nom as vil_num2, par_km FROM Personne p JOIN Ville v1 ON p.vil_num1=v1.vil_num JOIN Ville v2 ON p.vil_num2 = v2.vil_num ORDER BY 1';
+	public function getAllPersonne(){
+    $listePersonne = array();
 
-            $requete = $this->db->prepare($sql);
-            $requete->execute();
+    $sql = 'SELECT per_num, per_nom FROM Personne p JOIN Ville v ON smthg ORDER BY 1';
 
-            while ($Personne = $requete->fetch(PDO::FETCH_OBJ))
-                $listePersonne[] = new Personne($Personne);
+    $requete = $this->db->prepare($sql);
+    $requete->execute();
 
-            $requete->closeCursor();
-            return $listePersonne;
-					}
+    while ($personne = $requete->fetch(PDO::FETCH_OBJ))
+        $listePersonne[] = new Personne($personne);
 
-		public function getNbPersonne() {
+    $requete->closeCursor();
+    return $listePersonne;
+	}
 
-			$sql = 'SELECT count(*) as nbPersonne FROM Personne' ;
+	public function getNbPersonne() {
 
-			$requete = $this->db->prepare($sql);
-            $requete->execute();
+	$sql = 'SELECT count(*) as nbPersonne FROM Personne' ;
 
-            $nbPersonne = $requete->fetch(PDO::FETCH_OBJ);
-            $requete->closeCursor();
-            return $nbPersonne->nbPersonne;
-					
-		}
+	$requete = $this->db->prepare($sql);
+  $requete->execute();
+
+  $nbPersonne = $requete->fetch(PDO::FETCH_OBJ);
+  $requete->closeCursor();
+  return $nbPersonne->nbPersonne;
 
 	}
+
+	public fonction retourID() {
+		$id = $this->db->lastInsertId();
+		return $id;
+	}
+
+}
 
 
 ?>
