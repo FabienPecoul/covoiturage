@@ -6,12 +6,12 @@ if (empty($_POST["per_nom"])){ //premier appel
 
 	<form action="index.php?page=1" id="insert" method="post">
 
-		Nom :       <input type="text" name="per_nom"  id="per_nom" size="11">
-		Prenom :    <input type="text" name="per_prenom" id="per_prenom" size="11"> <br />
-		Téléphone : <input type="text" name="per_tel" id="per_tel" size="11">
-		Mail :      <input type="email" name="per_mail" id="per_mail" size="11"> <br />
-		Login :     <input type="text" name="per_login" id="per_login" size="11">
-		Password :  <input type="password" name="per_pwd" id="per_pwd" size="11"> <br />
+		Nom :       <input type="text" name="per_nom"  id="per_nom" size="11" required/>
+		Prenom :    <input type="text" name="per_prenom" id="per_prenom" size="11" required/> <br />
+		Téléphone : <input type="text" name="per_tel" id="per_tel" size="11" required/>
+		Mail :      <input type="email" name="per_mail" id="per_mail" size="11" required/> <br />
+		Login :     <input type="text" name="per_login" id="per_login" size="11" required/>
+		Password :  <input type="password" name="per_pwd" id="per_pwd" size="11" required/> <br />
 
 		Catégorie :	<input type="radio" name="statut" id="etu" value="Etudiant"> Etudiant
 			<input type="radio" name="statut" id="sal" value="Personnel"> Personnel
@@ -91,7 +91,7 @@ if (empty($_POST["per_nom"])){ //premier appel
 		$fonctionManager = new FonctionManager($pdo);
 		$fonctions = $fonctionManager->getAllFonctions();
 ?>
-		Téléphone professionnel : <input type="text" name="sal_telprof" id="sal_telprof" size="11">
+		Téléphone professionnel : <input type="text" name="sal_telprof" id="sal_telprof" size="11" required/>
 		<br />
 
 		Fonction :  <select  name="for_num"  id="for_num">
@@ -127,12 +127,12 @@ if (empty($_POST["per_nom"])){ //premier appel
 
 	<form action="index.php?page=1" id="insert" method="post">
 
-		Nom :       <input type="text" name="per_nom"  id="per_nom" size="11">
-		Prenom :    <input type="text" name="per_prenom" id="per_prenom" size="11"> <br />
-		Téléphone : <input type="text" name="per_tel" id="per_tel" size="11">
-		Mail :      <input type="email" name="per_mail" id="per_mail" size="11"> <br />
-		Login :     <input type="text" name="per_login" id="per_login" size="11">
-		Password :  <input type="password" name="per_pwd" id="per_pwd" size="11"> <br />
+		Nom :       <input type="text" name="per_nom"  id="per_nom" size="11" required/>
+		Prenom :    <input type="text" name="per_prenom" id="per_prenom" size="11" required/> <br />
+		Téléphone : <input type="text" name="per_tel" id="per_tel" size="11" required/>
+		Mail :      <input type="email" name="per_mail" id="per_mail" size="11" required/> <br />
+		Login :     <input type="text" name="per_login" id="per_login" size="11" required/>
+		Password :  <input type="password" name="per_pwd" id="per_pwd" size="11" required/> <br />
 
 		Catégorie :	<input type="radio" name="statut" id="etu" value="Etudiant"> Etudiant
 			<input type="radio" name="statut" id="sal" value="Personnel"> Personnel
